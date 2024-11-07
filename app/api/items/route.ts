@@ -1,15 +1,15 @@
-import dbConnect from '@/app/lib/db';
+import dbConnect from '@/lib/db';
 import mongoose from 'mongoose';
 import { NextResponse } from 'next/server';
 
 const expenseItemSchema = new mongoose.Schema({
     item_name: { type: String, required: true },
     amount: { type: Number, required: true },
-    expense_date: {type: Date, required: true, default: Date.now},
-  }, { timestamps: true });
+    description: {type: String, required: false},
+    expense_date: { type: Date, required: true, default: Date.now },
+  }, { timestamps: false });
 
 const ExpenseItem = mongoose.models.ExpenseItem || mongoose.model('ExpenseItem', expenseItemSchema);
-
 
 export async function GET() {
   await dbConnect();
@@ -19,9 +19,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { item_name, amount, expense_date } = await request.json();
+  const { item_name, amount, expense_date, description } = await request.json();
   await dbConnect();
-  const expense_item = new ExpenseItem({ item_name, amount, expense_date });
+  const expense_item = new ExpenseItem({ item_name, amount, expense_date, description });
   await expense_item.save();
   return new Response(JSON.stringify(expense_item), { status: 201 });
 }
