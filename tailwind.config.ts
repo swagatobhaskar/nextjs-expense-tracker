@@ -14,7 +14,7 @@ const config: Config = {
       },
       fontFamily: {
         inter: ['var(--font-inter)'],
-        nunito: ['var(--font-nunito)']
+        spline: ['var(--font-spline)']
       },
     },
   },

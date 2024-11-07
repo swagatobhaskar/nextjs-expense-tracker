@@ -1,12 +1,13 @@
-import Image from "next/image";
+// import Image from "next/image";
+import ExpenseList from "@/ui/ExpenseList";
 
-export default function Home() {
+export default function Home() {  // why is it not async?
   return (
     <div className="">
       <main className="">
-        <article>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, quibusdam consectetur nobis molestiae, doloremque expedita optio perspiciatis ipsam beatae laudantium, molestias pariatur aliquam ad qui! Obcaecati corrupti similique doloremque architecto.</p>
-        </article>
+        <div className="">
+          <ExpenseList />
+        </div>
       </main>
       <footer className="">
         
