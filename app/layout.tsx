@@ -37,12 +37,14 @@ export default function RootLayout({
         <div className="flex flex-row">
           <div id="sidebar" className="w-1/6 h-screen bg-gray-600">
             <nav className="font-inter font-light font-4xl text-white">
-              <p className="mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Home</p>
-              <p className="mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Categories</p>
-              <p className="mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
+              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Home</p>
+              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Categories</p>
+              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
             </nav>
           </div>
-          {children}
+          <div>
+            {children}
+          </div>
         </div>
       </body>
     </html>
