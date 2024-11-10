@@ -1,5 +1,6 @@
 // import Image from "next/image";
 import ExpenseList from "@/ui/ExpenseList";
+// import { Suspense } from "react";
 import { ObjectId } from "mongoose";
 
 interface Expense {
@@ -15,12 +16,14 @@ export default async function Home() {
   
   return (
     <div className="relative">
-      <main className="mx-20">
-      <ExpenseList data={expenses} />
-      </main>
-      <footer className="">
-      
-      </footer>
+      <div className="mx-auto w-2/3 bg-blue-500 font-extralight font-serif">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, magnam eaque itaque iure pariatur maiores doloribus quo eveniet. Ab, nulla adipisci. In, eligendi reprehenderit velit officiis fugiat delectus reiciendis necessitatibus.</p>
+      </div>
+      {/* <main className="mx-20">*/}
+        {/* <Suspense fallback={<p>Loading...</p>}> */}
+          <ExpenseList expenseData={expenses} />
+        {/* </Suspense>         */}
+      {/* </main> */}
     </div>
   );
 }

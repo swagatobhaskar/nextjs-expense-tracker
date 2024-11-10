@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {Inter, Spline_Sans} from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -29,23 +30,36 @@ export default function RootLayout({
       <body
         className=""
       >
+        {/* Top header */}
         <div className="w-full h-20 bg-gray-700 content-center">
           <h4 className="font-spline text-white w-1/4 ml-20 text-4xl">
             My Tiny Expense Tracker
           </h4>
         </div>
+        
         <div className="flex flex-row">
           <div id="sidebar" className="w-1/6 h-screen bg-gray-600">
             <nav className="font-inter font-light font-4xl text-white">
-              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Home</p>
-              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Categories</p>
-              <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
+              <Link href={'/'}>
+                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Home</p>
+              </Link>
+              <Link href={'/categories'}>
+                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Categories</p>
+              </Link>
+              <Link href={'/subcategories'}>
+                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
+              </Link>
             </nav>
           </div>
-          <div>
+          <div className="w-full">
             {children}
           </div>
         </div>
+        
+        {/* Footer Section */}      
+        <footer className="">
+        
+        </footer>
       </body>
     </html>
   );
