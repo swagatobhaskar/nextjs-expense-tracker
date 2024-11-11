@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     await dbConnect();
     const category = new Category({ name });
     await category.save();
-    return NextResponse.json({message: "New category added successfully!"}, { status: 201 });
+    return NextResponse.json(category, { status: 201 });
 }
   
 export async function DELETE(request: Request) {

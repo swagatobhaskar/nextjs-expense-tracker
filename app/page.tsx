@@ -9,7 +9,7 @@ interface Expense {
     amount: number;      // The amount (assumed to be a number)
     expense_date: string;
 }
-export default async function Home() {
+export default async function Home() {  // this is non async in many official examples
   
   const data = await fetch('http://127.0.0.1:3000/api/items/');
   const expenses: Expense[] = await data.json();

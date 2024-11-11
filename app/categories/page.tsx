@@ -1,20 +1,11 @@
-"use client"
+'use client'
 
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-// const categories = [
-//     {"_id":1, "name":"junk"},
-//     {"_id":2, "name":"food"},
-//     {"_id":3, "name":"education"}];
-
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 export default function Category() {
-    // const data = await fetch('http://127.0.0.1:3000/api/categories/');
-    // const categories = await data.json();
-    const router = useRouter();
-
+    
     const [isVisible, setIsVisible] = useState(false);
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState();
@@ -58,7 +49,8 @@ export default function Category() {
 
     const handleAddNewCategory = async (e) => {
         e.preventDefault();
-        
+        setIsVisible(false);
+
         try {
             const response = await fetch('/api/categories', {
                 method: 'POST',
@@ -72,11 +64,13 @@ export default function Category() {
                 const errorData = await response.json();
                 throw new Error(errorData || 'Something went wrong!');
             }
+
+            const data = await response.json();
+
+            setCategories((prevData) => [...prevData, { "name": data.name, "_id": data._id.toString() }]);
         } catch(err) {
             console.error(err);
         }
-        setIsVisible(false);
-        router.refresh(); //(window.location.href = "/categories");
     }
     
     return (
@@ -87,10 +81,7 @@ export default function Category() {
                     <ul key={category._id.toString()} className="list-none">
                         <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded flex flex-row justify-between">
                             <p className="">{category.name}</p>
-                            <button
-                                type="submit"
-                                name="delete"
-                                title="Delete"
+                            <button type="submit" name="delete" title="Delete"
                                 onClick={(e) => handleDeleteCategory(e, category._id) }
                                 >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 304 384"><path fill="currentColor" d="M21 341V85h256v256q0 18-12.5 30.5T235 384H64q-18 0-30.5-12.5T21 341zM299 21v43H0V21h75L96 0h107l21 21h75z"/></svg>
@@ -115,6 +106,7 @@ export default function Category() {
                 <div className="relative">
                     <form
                         onSubmit={handleAddNewCategory}
+                        method="POST"
                         className="absolute top-20 shadow-md shadow-gray-300
                             h-32 w-full flex flex-row justify-center py-10 px-2"
                         >
@@ -123,6 +115,7 @@ export default function Category() {
                             type="text"
                             name="new-category"
                             placeholder="new expense category"
+                            id="new-category"
                             onChange={(e) => setNewCategory(e.target.value)}
                             required
                         />
