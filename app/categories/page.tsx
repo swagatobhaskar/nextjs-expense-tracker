@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 //     {"_id":2, "name":"food"},
 //     {"_id":3, "name":"education"}];
 
+export const dynamic = 'force-dynamic';
+
 export default function Category() {
     // const data = await fetch('http://127.0.0.1:3000/api/categories/');
     // const categories = await data.json();
@@ -30,32 +32,76 @@ export default function Category() {
         setIsVisible(prevState => !prevState);
     };
 
-    const handleAddNewCategory = async() => {
-        console.log("new category", newCategory);
+    const handleDeleteCategory = async (e, categoryId) => {
+        e.preventDefault();
+        
+        try{
+            const response = await fetch('/api/categories', {
+                    method: 'DELETE',
+                    body: JSON.stringify({"_id": categoryId}),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                }
+            )
+
+            if (response.ok) {
+                // Remove the item from the local state after successful delete
+                setCategories(categories.filter(item => item._id !== categoryId));
+            } else {
+                console.error('Failed to delete item');
+            }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+        }
+    }
+
+    const handleAddNewCategory = async (e) => {
+        e.preventDefault();
+        
         try {
-            const resp = await fetch('http://127.0.0.1:3000/api/categories', {
+            const response = await fetch('/api/categories', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(newCategory)
-            }).then(
-                router.push('/categories'))
-            
+                body: JSON.stringify({"name": newCategory})
+            })
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData || 'Something went wrong!');
+            }
         } catch(err) {
             console.error(err);
         }
+        setIsVisible(false);
+        router.refresh(); //(window.location.href = "/categories");
     }
     
     return (
         <div className="mx-auto mt-10 min-w-40 w-1/3">
+            {(categories.length !== 0) ? (
             <div>
                 {categories.map((category) => (
                     <ul key={category._id.toString()} className="list-none">
-                        <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded">{category.name}</li>
+                        <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded flex flex-row justify-between">
+                            <p className="">{category.name}</p>
+                            <button
+                                type="submit"
+                                name="delete"
+                                title="Delete"
+                                onClick={(e) => handleDeleteCategory(e, category._id) }
+                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 304 384"><path fill="currentColor" d="M21 341V85h256v256q0 18-12.5 30.5T235 384H64q-18 0-30.5-12.5T21 341zM299 21v43H0V21h75L96 0h107l21 21h75z"/></svg>
+                            </button>
+                        </li>
                     </ul>
                 ))}
             </div>
+            ) : (
+                <p>Loading categories...</p>
+            )}
             <div className="relative">
                 <button
                     className="absolute right-1 mt-2 py-2 px-3 bg-gray-600 hover:bg-gray-700 cursor-pointer text-white"
@@ -83,7 +129,6 @@ export default function Category() {
                         <button
                             className="py-2 px-5 ml-2 rounded-sm bg-gray-600 hover:bg-gray-700 cursor-pointer text-white"
                             type="submit"
-                            name="submit"
                             >
                             Add
                         </button>

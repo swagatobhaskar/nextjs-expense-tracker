@@ -20,19 +20,19 @@ export async function POST(request: Request) {
     await dbConnect();
     const category = new Category({ name });
     await category.save();
-    return new Response(JSON.stringify(category), { status: 201 });
+    return NextResponse.json({message: "New category added successfully!"}, { status: 201 });
 }
   
 export async function DELETE(request: Request) {
-    const { id } = await request.json();
+    const { _id } = await request.json();
     await dbConnect();
-    const category = await Category.findByIdAndDelete(id);
+    const category = await Category.findByIdAndDelete(_id);
   
     if (!category) {
       return NextResponse.json({ message: 'Item not found' }, { status: 404 });
     }
   
-    return NextResponse.json(category);
+    return NextResponse.json({ message: 'Category Deleted Successfully!' }, { status: 200 });
   }
   
 
