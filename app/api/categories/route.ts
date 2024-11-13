@@ -6,11 +6,11 @@ const categorySchema = new mongoose.Schema({
     name: {type: String, required: true},
 })
 
-const Category = mongoose.models.Category || mongoose.model('Category', categorySchema);
+export const Category = mongoose.models.Category || mongoose.model('Category', categorySchema);
 
 export async function GET() {
     await dbConnect();
-    const categories = await Category.find({});
+    const categories = await Category.find({});//.populate('subcategories');
     return new Response(JSON.stringify(categories), { status: 200 });
   //   return NextResponse.json(posts);
   }
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     await category.save();
     return NextResponse.json(category, { status: 201 });
 }
-  
+
 export async function DELETE(request: Request) {
     const { _id } = await request.json();
     await dbConnect();
