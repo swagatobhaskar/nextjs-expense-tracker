@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/db";
 import mongoose from "mongoose";
-import { NextResponse } from "next/server";
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { Category } from "../categories/route";
 
 const subCategorySchema = new mongoose.Schema({
     name: {type: String, required: true},
@@ -29,12 +29,12 @@ export async function GET(request: NextRequest) {
     */
 
     if (!searchParams || searchParams.toString() === '') {
-      const subcategories = await Subcategory.find().populate('category');
+      const subcategories = await Subcategory.find({}).populate({path: 'category', model: Category});
       return new Response(JSON.stringify(subcategories), { status: 200 });
     } else {
       const query = searchParams.get('query')
       // query is "hello" for /api/search?query=hello
-      const subcategoriesByCategoryID = await Subcategory.find({category: query});
+      const subcategoriesByCategoryID = await Subcategory.find({_id: query}).populate('category');
       return NextResponse.json(subcategoriesByCategoryID, {status: 200})
     }
 }
