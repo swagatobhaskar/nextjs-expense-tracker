@@ -72,22 +72,18 @@ export default function CategoryList() {
             console.error(err);
         }
     }
-
-
     
     return (
         <div className="mx-auto mt-10 min-w-40 w-1/3">
             {(categories.length !== 0) ? (
-            <div>
+            <div className="list-none">
                 {categories.map((category) => (
-                    <ul key={category._id.toString()} className="list-none">
-                        <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded ">
-                            <Category
-                                category={category}
-                                handleDeleteCategory={handleDeleteCategory}    
-                            />
-                        </li>
-                    </ul>
+                    <li key={category._id.toString()} className="my-3 p-3 bg-gray-700 text-white text-xl rounded">
+                        <Category
+                            category={category}
+                            handleDeleteCategory={handleDeleteCategory}    
+                        />
+                    </li>
                 ))}
             </div>
             ) : (

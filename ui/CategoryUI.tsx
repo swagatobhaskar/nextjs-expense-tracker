@@ -51,7 +51,7 @@ export default function Category({category, handleDeleteCategory}) {
                 )}
             </div>
             {/* Subcategory showing section */}
-            <div className="absolute block">
+            <div className="block">
                 { subcategories.length !== 0 && (
                     <div className="bg-white bottom-[2px] border-gray-700">
                         {subcategories.map((item) => (
