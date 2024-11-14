@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-
+import Category from "@/ui/CategoryUI";
 // export const dynamic = 'force-dynamic';
 
-export default function Category() {
+export default function CategoryList() {
     
     const [isVisible, setIsVisible] = useState(false);
     const [categories, setCategories] = useState([]);
@@ -72,6 +72,8 @@ export default function Category() {
             console.error(err);
         }
     }
+
+
     
     return (
         <div className="mx-auto mt-10 min-w-40 w-1/3">
@@ -79,13 +81,11 @@ export default function Category() {
             <div>
                 {categories.map((category) => (
                     <ul key={category._id.toString()} className="list-none">
-                        <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded flex flex-row justify-between">
-                            <p className="">{category.name}</p>
-                            <button type="submit" name="delete" title="Delete"
-                                onClick={(e) => handleDeleteCategory(e, category._id) }
-                                >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 304 384"><path fill="currentColor" d="M21 341V85h256v256q0 18-12.5 30.5T235 384H64q-18 0-30.5-12.5T21 341zM299 21v43H0V21h75L96 0h107l21 21h75z"/></svg>
-                            </button>
+                        <li className="my-3 p-3 bg-gray-700 text-white text-xl rounded ">
+                            <Category
+                                category={category}
+                                handleDeleteCategory={handleDeleteCategory}    
+                            />
                         </li>
                     </ul>
                 ))}
