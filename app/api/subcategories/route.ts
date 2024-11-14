@@ -14,27 +14,30 @@ const subCategorySchema = new mongoose.Schema({
 
 export const Subcategory = mongoose.models.Subcategory || mongoose.model('Subcategory', subCategorySchema);
 
-export async function GET() {
-    await dbConnect();
-    const subcategories = await Subcategory.find({}).populate('category');
-    return new Response(JSON.stringify(subcategories), { status: 200 });
-  //   return NextResponse.json(posts);
-  }
-
-// export async function GET(request: NextRequest) {
+// export async function GET() {
 //     await dbConnect();
-//     if (request) {
-//         const searchParams = request.nextUrl.searchParams
-//         const query = searchParams.get('query')
-//         // query is "hello" for /api/search?query=hello
-//         const subcategoriesByCategoryID = await Subcategory.find({category_id: query}).populate('');
+//     const subcategories = await Subcategory.find({}).populate('category');
+//     return new Response(JSON.stringify(subcategories), { status: 200 });
+//   //   return NextResponse.json(posts);
+//   }
 
-//         return NextResponse.json(subcategoriesByCategoryID, {status: 200})
-//     } else {
-//         const subcategories = await Subcategory.find({});
-//         return new Response(JSON.stringify(subcategories), { status: 200 });
-//     }
-// }
+export async function GET(request: NextRequest) {
+    await dbConnect();
+    const searchParams = request.nextUrl.searchParams;
+    /**
+    request.nextUrl.searchParams is an instance of URLSearchParams, not null. It is never null, even if there are no query parameters in the URL. Instead, it is an empty URLSearchParams object. This means that if (!searchParams) will evaluate to false, and the code inside the if block won't run.
+    */
+
+    if (!searchParams || searchParams.toString() === '') {
+      const subcategories = await Subcategory.find().populate('category');
+      return new Response(JSON.stringify(subcategories), { status: 200 });
+    } else {
+      const query = searchParams.get('query')
+      // query is "hello" for /api/search?query=hello
+      const subcategoriesByCategoryID = await Subcategory.find({category: query});
+      return NextResponse.json(subcategoriesByCategoryID, {status: 200})
+    }
+}
 
 export async function POST(request: Request) {
     const { name, category } = await request.json();
@@ -53,7 +56,7 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ message: 'Item not found' }, { status: 404 });
     }
   
-    return NextResponse.json({ message: 'Category Deleted Successfully!' }, { status: 200 });
+    return NextResponse.json({ message: 'Subcategory Deleted Successfully!' }, { status: 200 });
   }
   
 
