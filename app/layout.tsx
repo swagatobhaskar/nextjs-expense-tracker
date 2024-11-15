@@ -49,6 +49,9 @@ export default function RootLayout({
               <Link href={'/subcategories'}>
                 <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
               </Link>
+              <Link href={'/categories/demo'}>
+                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Dropdown Demo</p>
+              </Link>
             </nav>
           </div>
           <div className="w-full">

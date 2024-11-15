@@ -7,7 +7,7 @@ export default function Category({category, handleDeleteCategory}) {
 
     const handleExpand = async (e) => {
         e.preventDefault();
-        console.log("EXPAND clicked.");
+        // console.log("EXPAND clicked.");
         try {
             const subcategories = await fetch(`/api/categories?query=${category._id}`)
             const response = await subcategories.json();
@@ -27,7 +27,7 @@ export default function Category({category, handleDeleteCategory}) {
     }
 
     return (
-        <div className="" >
+        <div className=""> {/* adding className here might break lower CSS styles */}
             <div className="flex flex-row justify-between">
                 <p className="">{category.name}</p>
                 <button name="delete" title="Delete"
@@ -37,7 +37,7 @@ export default function Category({category, handleDeleteCategory}) {
                 </button>
             </div>
             {/* Expand buttons */}
-            <div className="right-2">
+            <div className="">
                 { !expand ? (
                     <button id="subcategory-expand" onClick={ (e)=>handleExpand(e) } className="">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g id="feArrowDown0" fill="none" fill-rule="evenodd" stroke="none" stroke-width="1"><g id="feArrowDown1" fill="currentColor">
@@ -51,9 +51,9 @@ export default function Category({category, handleDeleteCategory}) {
                 )}
             </div>
             {/* Subcategory showing section */}
-            <div className="block">
+            <div className="block bg-none">
                 { subcategories.length !== 0 && (
-                    <div className="bg-white bottom-[2px] border-gray-700">
+                    <div className="bg-white">
                         {subcategories.map((item) => (
                             <ul key={item._id.toString()}>
                                 <li className="text-sm">{item.name}</li>

@@ -78,12 +78,12 @@ export default function CategoryList() {
             {(categories.length !== 0) ? (
             <div className="list-none">
                 {categories.map((category) => (
-                    <li key={category._id.toString()} className="my-3 p-3 bg-gray-700 text-white text-xl rounded">
+                    <div key={category._id.toString()} className="my-3 p-3 bg-gray-700 text-white text-xl rounded">
                         <Category
                             category={category}
                             handleDeleteCategory={handleDeleteCategory}    
                         />
-                    </li>
+                    </div>
                 ))}
             </div>
             ) : (
