@@ -36,7 +36,7 @@ export default function RootLayout({
             My Tiny Expense Tracker
           </h4>
         </div>
-        
+        {/* Sidebar and main content area */}
         <div className="flex flex-row">
           <div id="sidebar" className="w-1/6 h-screen bg-gray-600">
             <nav className="font-inter font-light font-4xl text-white">
