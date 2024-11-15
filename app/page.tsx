@@ -1,6 +1,7 @@
 //import ExpenseList from "@/ui/ExpenseList";
 import { ObjectId } from "mongoose";
 import {format} from "date-fns";
+import NewItem from "@/lib/newItem";
 
 interface Expense {
     _id: ObjectId;         // Assuming _id is a string (it could be ObjectId if you're using MongoDB)
@@ -24,8 +25,8 @@ export default async function Home() {  // this is non async in many official ex
             <thead className="text-lg">
                 <tr>
                     <th className="border border-amber-400">ID</th>
-                    <th className="border border-amber-400">Amount</th>
                     <th className="border border-amber-400">Name</th>
+                    <th className="border border-amber-400">Amount</th>
                     <th className="border border-amber-400">Date</th>
                 </tr>
             </thead>
@@ -40,6 +41,9 @@ export default async function Home() {  // this is non async in many official ex
                 ))}
             </tbody>
         </table>
+        <div className="w-2/4 mx-auto mt-20 border-[1px] rounded-sm border-gray-400 p-4">
+            <NewItem />
+        </div>
       </main>
   );
 }
