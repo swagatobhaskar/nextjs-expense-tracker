@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 
 export default function NewItem() {
     
-    const [formData, setFormData] = useState();
+    const [formData, setFormData] = useState({
+        "name": "", "amount": "", "category": "", "subcategory":"", "date":""
+    });
     const [categoryOptions, setCategoryOptions] = useState([]);
     const [subcategoryOptions, setSubcategoryOptions] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
@@ -88,7 +90,7 @@ export default function NewItem() {
             {/* Use Date picker for the below Date field */}
             <div className="inline flex flex-row mt-2">
                 <label htmlFor="Date">Date</label>
-                <input type="text" name="date" required placeholder="Expense Date" />
+                <input type="date" name="date"/>
             </div>
             <button 
                 className="bg-gray-600 hover:bg-black font-semibold hover:font-bold text-white cursor-pointer py-2 w-1/4"
