@@ -10,9 +10,9 @@ export default function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState();
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchCategoryData = async () => {
-            const res = await fetch('http://127.0.0.1:3000/api/categories');
+            const res = await fetch('/api/categories');
             const data = await res.json();
             setCategories(data);
         };

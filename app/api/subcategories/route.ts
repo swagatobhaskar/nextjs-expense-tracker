@@ -21,9 +21,11 @@ export const Subcategory = mongoose.models.Subcategory || mongoose.model('Subcat
 //   //   return NextResponse.json(posts);
 //   }
 
+
 export async function GET(request: NextRequest) {
     await dbConnect();
     const searchParams = request.nextUrl.searchParams;
+    console.log("SEARCH-PARAMS:: ", searchParams.toString(), searchParams.get('query'));
     /**
     request.nextUrl.searchParams is an instance of URLSearchParams, not null. It is never null, even if there are no query parameters in the URL. Instead, it is an empty URLSearchParams object. This means that if (!searchParams) will evaluate to false, and the code inside the if block won't run.
     */
@@ -31,13 +33,16 @@ export async function GET(request: NextRequest) {
     if (!searchParams || searchParams.toString() === '') {
       const subcategories = await Subcategory.find({}).populate({path: 'category', model: Category});
       return new Response(JSON.stringify(subcategories), { status: 200 });
-    } else {
+    }
+
+    else {
       const query = searchParams.get('query')
       // query is "hello" for /api/search?query=hello
       const subcategoriesByCategoryID = await Subcategory.find({_id: query}).populate('category');
       return NextResponse.json(subcategoriesByCategoryID, {status: 200})
     }
 }
+
 
 export async function POST(request: Request) {
     const { name, category } = await request.json();
