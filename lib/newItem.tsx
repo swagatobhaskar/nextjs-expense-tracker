@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function NewItem() {
     
@@ -12,6 +14,8 @@ export default function NewItem() {
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedSubcategory, setSelectedSubcategory] = useState();
     const [runFetchCategories, setRunFetchCategories] = useState(false);
+    // react-datepicker
+    const [ expenseDate, setExpenseDate ] = useState(new Date());
 
     const handleCategoryDropdown = (e) => {
         setSelectedCategory(e.target.value);
@@ -90,7 +94,21 @@ export default function NewItem() {
             {/* Use Date picker for the below Date field */}
             <div className="inline flex flex-row mt-2">
                 <label htmlFor="Date">Date</label>
-                <input type="date" name="date"/>
+                {/* https://reactdatepicker.com/ */}
+                <DatePicker
+                closeOnScroll={true}
+                showIcon
+                selected={expenseDate}
+                onChange={(date) => setExpenseDate(date)}
+                isClearable
+                placeholderText="Expense Date"
+                dateFormat="dd/MM/yyyy"
+                peekNextMonth
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
+      yearItemNumber={9}
+                />
             </div>
             <button 
                 className="bg-gray-600 hover:bg-black font-semibold hover:font-bold text-white cursor-pointer py-2 w-1/4"
