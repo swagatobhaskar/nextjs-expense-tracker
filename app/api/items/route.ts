@@ -7,7 +7,9 @@ const expenseItemSchema = new mongoose.Schema({
     amount: { type: Number, required: true },
     description: {type: String, required: false},
     expense_date: { type: Date, required: true, default: Date.now },
-  }, { timestamps: false });
+    category: {type: String, required: false},
+    subcategory: {type: String, required: false},
+  }, { timestamps: true });
 
 const ExpenseItem = mongoose.models.ExpenseItem || mongoose.model('ExpenseItem', expenseItemSchema);
 
@@ -19,9 +21,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const { item_name, amount, expense_date, description } = await request.json();
+  const { item_name, amount, expense_date, description, category, subcategory } = await request.json();
   await dbConnect();
-  const expense_item = new ExpenseItem({ item_name, amount, expense_date, description });
+  const expense_item = new ExpenseItem({ item_name, amount, expense_date, description, category, subcategory });
   await expense_item.save();
   return new Response(JSON.stringify(expense_item), { status: 201 });
 }
