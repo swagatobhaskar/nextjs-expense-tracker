@@ -69,29 +69,16 @@ export default function NewItem() {
 
     const handleNewItemSubmit = async (e) => {
         e.preventDefault();
-        console.log(formData);
-        NewItemSubmitAction(formData);
-        
+        //console.log(formData);
+                        
         // <Not Required, this time.>
         // const submissionData = {
         //     ...formData,
         //     amount: formData.amount ? parseFloat(formData.amount) : null, //convert amount to number
         // }
 
-        // try {
-        //     const resp = await fetch('/api/items', {
-        //     method: 'POST',
-        //     body: JSON.stringify(formData),
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         }
-        //     })
-
-        //     if (!resp.ok) throw new Error(await resp.json());
-        // } catch (err) {
-        //     console.log(err);
-        // }
-
+        // Server Action
+        NewItemSubmitAction(formData);
     }
 
     return (
