@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const { id } = await request.json();
+  const { id } = await request.json(); // Here, id is used instead of _id.
   await dbConnect();
   const expense_item_to_delete = await ExpenseItem.findByIdAndDelete(id);
 

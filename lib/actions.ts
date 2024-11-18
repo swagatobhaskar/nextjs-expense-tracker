@@ -15,19 +15,6 @@ export async function NewItemSubmitAction(formData) {
     redirect('/');
 }
 
-export async function ItemDeleteAction(id) {
-    console.log("Inside DELETE action", id);
-    await fetch('http://127.0.0.1:3000/api/items/', {
-        method: 'DELETE',
-        body: JSON.stringify({"_id": id}),
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-
-    redirect('/');
-}
-
 export async function ItemEditAction(id) {
     await fetch('http://127.0.0.1:3000/api/items/', {
         method: 'PUT',
