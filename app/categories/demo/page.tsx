@@ -1,10 +1,13 @@
 'use client'
 
 import { useState } from "react";
+import Modal from "@/ui/demoModal";
 
 export default function DropdownDemo() {
 
     const [expand, setExpand] = useState(false);
+    const [hidden, setHidden] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     const listItems = [
         {'id': 1, 'name': 'item 1'},
@@ -17,8 +20,12 @@ export default function DropdownDemo() {
         setExpand(!expand);
     }
 
+    const handleClose = () => {
+        setShowModal(false);
+    }
+
     return (
-        <div className="">
+        <div className="mx-auto w-2/4">
             <div id="first" className="w-28 m-auto mt-20">
                 <button
                     className="cursor:pointer hover:bg-blue-200 p-3 border-2 rounded-md border-blue-700"
@@ -34,12 +41,19 @@ export default function DropdownDemo() {
                 )}
             </div>
 
-            <div
-                id="second"
-                className="cursor:pointer hover:bg-blue-200 p-3 border-2 rounded-md border-blue-700 w-28 m-auto mt-10"
-                >
-                Click Me!
+            <div className={!hidden ? "block" : "hidden"}>
+                <p className="hover:cursor-pointer" onClick={() => setHidden(!hidden)}>Hidden</p>
             </div>
+
+            <button
+                type="button"
+                className="cursor:pointer hover:bg-blue-600 bg-blue-500 
+                    text-white p-3 border-2 rounded-md border-blue-700 w-auto mx-20 mt-10"
+                onClick={()=>setShowModal(true)}
+                >
+                Show Modal
+            </button>
+            <Modal handleClose={handleClose} showModal={showModal} />
         </div>
     );
 }
