@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from "next"; 
 import {Inter, Spline_Sans} from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import NavLinks from "@/ui/nav-links";
 
 const inter = Inter({
   subsets: ['latin'],
@@ -22,8 +22,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal // the modal slot
 }: Readonly<{
   children: React.ReactNode;
+  modal:React.ReactNode
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${spline.variable}`}>
@@ -38,24 +40,10 @@ export default function RootLayout({
         </div>
         {/* Sidebar and main content area */}
         <div className="flex flex-row">
-          <div id="sidebar" className="w-1/6 h-screen bg-gray-600">
-            <nav className="font-inter font-light font-4xl text-white">
-              <Link href={'/'}>
-                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Home</p>
-              </Link>
-              <Link href={'/categories'}>
-                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Categories</p>
-              </Link>
-              <Link href={'/subcategories'}>
-                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Sub-categories</p>
-              </Link>
-              <Link href={'/categories/demo'}>
-                <p className="hover:cursor-pointer mx-2 mt-2 p-2 hover:font-semibold hover:bg-gray-700 hover:border-b-2">Dropdown Demo</p>
-              </Link>
-            </nav>
-          </div>
+          <NavLinks />
           <div className="w-full">
             {children}
+            {modal}
           </div>
         </div>
         

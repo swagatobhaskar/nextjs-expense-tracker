@@ -1,9 +1,16 @@
 "use client"
 
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef } from "react"
 
 export default function EditItemModal({item}) {
+
+    const router = useRouter();
+
+    function handleOpenChange() {
+        router.back();
+    }
 
     const [ formData, setFormData ] = useState({
         "item_name": item.item_name,
@@ -13,10 +20,6 @@ export default function EditItemModal({item}) {
         "subcategory": item.subcategory
     });
 
-    const searchParams = useSearchParams()
-    const dialogRef = useRef<null | HTMLDialogElement >(null)
-    const showDialog = searchParams.get('showEditDialog')
-
     useEffect( () => {
         if (showDialog === 'true') {
             dialogRef.current?.showModal()
@@ -25,13 +28,14 @@ export default function EditItemModal({item}) {
         }
     }, [showDialog])
 
-    const closeDialog = () => {
-        dialogRef.current?.close()
-    }
+    // const closeDialog = () => {
+    //     dialogRef.current?.close()
+    // }
 
-    const clickSave = () => {
-        closeDialog()
-    }
+    // const clickSave = () => {
+    // make async to submit data
+    //     closeDialog()
+    // }
 
     // Handle form input changes
     const handleChange = (e) => {

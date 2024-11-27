@@ -3,7 +3,7 @@ import { ObjectId } from "mongoose";
 import {format} from "date-fns";
 import NewItem from "@/lib/newItem";
 import DeleteItem from "@/lib/deleteItem";
-import EditItemModal from "@/lib/editItemModal";
+import EditItemModal from "@/ui/editItemModal";
 import Link from "next/link";
 
 // import { ItemDeleteAction, ItemEditAction } from "@/lib/actions";
@@ -50,11 +50,11 @@ export default async function Home() {  // this is non async in many official ex
                         <td>{item.category}</td>
                         <td>{item.subcategory}</td>
                         <td className="flex flex-row justify-evenly">
-                            <Link href="/?showEditDialog=true" className="">
+                            <Link href={"/edit_item"} className="">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="currentColor" d="m16.77 8l1.94-2a1 1 0 0 0 0-1.41l-3.34-3.3a1 1 0 0 0-1.41 0L12 3.23zM1 14.25V19h4.75l9.96-9.96l-4.75-4.75z"
                                 /></svg>
                             </Link>
-                            <EditItemModal item={item} />
+                            {/* <EditItemModal item={item} /> */}
                             <DeleteItem id={item._id.toString()} />
                         </td>
                     </tr>
